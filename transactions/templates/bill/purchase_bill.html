@@ -1,0 +1,180 @@
+{% extends bill_base %}
+{% load static %}
+
+
+{% block title %} Purchases Bill No : {{ bill.billno }}{% endblock title %}
+
+
+{% block content %}
+
+    <div style="color:#575757; font-style: bold; font-size: 3rem;  border-bottom: 1px solid white;">Purchase Bill No : {{ bill.billno }}</div>
+
+    <!-- <br><br> --><!-- Log on to codeastro.com for more projects -->
+    
+    <form method="post">
+    {% csrf_token %}
+
+        <div class="bg">
+        
+            <br>
+
+            <div id="printArea" class="bg">
+
+                <table class="outer-box inner-box" style="width: 840px; margin-left: auto; margin-right: auto;">
+                    <tbody>
+                        
+                        <!-- <tr style="height: 1px;">
+                            <td> <p style="text-align: center;">TAX INVOICE - PURCHASE</p> </td>
+                        </tr>
+                         -->
+                        <tr style="text-align: center;">
+                            <td >
+                                <span style="font-size: 350%;">SMART GADGETS</span> <br>
+                                <span style="font-size: 120%; font-weight: bold;">DEALERS IN : Products</span> <br>
+                                <span style="font-weight: bold;">REGD ADDRESS :</span> Rolla,<br>Sharjah<br>
+                                <span style="font-weight: bold;">EMAIL : smartgadgetstrading@gmail.com</span> <br><br>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                            <table class="outer-box" style="width: 800px; margin-left: auto; margin-right: auto;">
+                                <tbody>
+                                    <tr>
+                                        <td class="inner-box" style="text-align: center; font-weight: bold;" colspan="3">GSTIN NO - 123456789CASTR0</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="width: 50%; font-weight: bold;">&nbsp;NAME OF CONSIGNEE / BUYER</td>
+                                        <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;INVOICE NO</td>
+                                        <td class="inner-box" style="width: 25%;">&nbsp;{{ bill.billno }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="inner-box" style="width: 50%;">&nbsp;{{ bill.supplier.name }}</td>
+                                        <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;DATE</td>
+                                        <td class="inner-box" style="width: 25%;">&nbsp;{{ bill.time.date }}</td>
+                                    </tr>
+                                    <tr><!-- Log on to codeastro.com for more projects -->
+                                        <td class="inner-box" style="width: 50%;" rowspan="3">{{ bill.supplier.address|linebreaks }}
+                                            
+                                        </td>
+                                        <td class="inner-box" style="width: 25%; font-weight: bold;"></td>
+                                        <td class="inner-box align-middle" style="width: 25%;"></td>
+                                       
+                                    </tr>
+                                    
+                                    
+                                   
+                                </tbody>
+                            </table>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><!-- Log on to codeastro.com for more projects -->
+                            <table class="outer-box" style="width: 800px; margin-left: auto; margin-right: auto;">
+                                <tbody>
+                                    <tr>
+                                        <td class="inner-box" style="width: 05%; font-weight: bold; text-align: center;">&nbsp;SL</td>
+                                        <td class="inner-box" style="width: 30%; font-weight: bold; text-align: center;">ITEM</td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">&nbsp;QTY MTS</td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">RATE PMT</td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">AMOUNT</td>
+                                        <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">DISCOUNT </td>
+                                        <td class="inner-box" style="width: 05%; font-weight: bold; text-align: center;">NET_AMOUNT </td>
+                                    </tr>
+                                    {% for item in items %}
+                                        <tr style="height: auto;">
+                                            <td class="inner-box" style="width: 5%;">&nbsp; {{ forloop.counter }}</td>
+                                            <td class="inner-box" style="width: 30%;">&nbsp; {{ item.stock.name }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp;{{ item.quantity }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ item.perprice }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ item.totalprice }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp;{{ item.discount }}</td>
+                                            <td class="inner-box" style="width: 5%;">&nbsp;{{item.net_amount}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td colspan="7" class="inner-box" style="text-align: right; font-weight: bold;">Grand Total:{{ items.last.grand_total }}</td>
+                                        <!-- <td class="inner-box" style="width: 5%;">&nbsp;{{ items.last.grand_total }}</td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                            <table class="outer-box inner-box" style="width: 800px; margin-left: auto; margin-right: auto;">
+                                <tbody>
+                                  
+                                    
+                                    
+                                   
+                                    
+                                  
+                                   
+                                </tbody>
+                            </table>
+                            </td>
+                        </tr>
+
+                        
+
+                        <tr>
+                            <td style="text-align: center;">
+                                <!-- FINAL TEXT -->
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+
+            <!-- <br><br> --><!-- Log on to codeastro.com for more projects -->
+
+        </div>
+
+        <br><br>
+
+        <div class="wrapper">
+            <button class="center btn btn-primary" onclick="printpage('printArea')">Print</button>
+            <button class="center btn btn-success" type="submit">Save Draft</button>
+            <a href="{% url 'purchases-list' %}" class=" btn center btn-secondary">Go Back</a>
+        </div><!-- Log on to codeastro.com for more projects -->
+
+    </form>
+
+    <script>
+        function printpage(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }       
+        </script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script>
+            function updatePerPrice() {
+                var stockId = $('#id_formset-TOTAL_FORMS-0-stock').val();
+                $.ajax({
+                    url: '/get_stock_price/',  // Replace with the actual URL to fetch stock price
+                    method: 'GET',
+                    data: {'stock_id': stockId},
+                    success: function(data) {
+                        $('#id_formset-TOTAL_FORMS-0-perprice').val(data.price);
+                    },
+                    error: function(error) {
+                        console.log('Error fetching stock price:', error);
+                    }
+                });
+            }
+    
+            $(document).ready(function() {
+                $('#id_formset-TOTAL_FORMS-0-stock').change(updatePerPrice);
+                $('#id_formset-TOTAL_FORMS-0-stock').change();
+            });
+        </script>
+
+{% endblock %}
